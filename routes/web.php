@@ -26,8 +26,8 @@ Route::get('login/{provider}/callback','SocialController@callback');
 Route::get('login/{provider}', 'SocialController@redirect');
 
 Route::group(['prefix' => 'users', 'middleware' => 'language'], function() {
-	Route::get('/{id}', 'UserController@edit')->name('users.edit');
-	Route::put('/{id}', 'UserController@update')->name('users.update');	
+    Route::get('/{id}', 'UserController@edit')->name('users.edit');
+    Route::put('/{id}', 'UserController@update')->name('users.update');
 });
 
 Route::group(['prefix' => 'passwords', 'middleware' => 'language'], function() {

@@ -10,29 +10,22 @@
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
-                                {{ __('home.good_article') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                {{ __('home.new_article') }}</a>
+                                {{ $tag->name }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    @foreach ($posts as $post)
+                    @foreach ($tag->post as $post)
                     <div class="row">
                         {{-- author-info --}}
                         <div class="col-sm-1">
-                            <a href="#"><img src="{{ asset('images/profile.png') }}" alt="" class="rounded-circle"
+                            <a href="#"><img src="{{ asset('image/profile.png') }}" alt="" class="rounded-circle"
                                     width="50px" height="50px"></a>
                         </div>
                         {{-- End author info --}}
                         {{-- Content --}}
                         <div class="col-sm-11">
-                            <h5 class="card-title"><a href="#" class="text-decoration-none  font-weight-bold text-info">{{ $post->title }}</a>
-                            @foreach ($post->tag as $singleTag)
-                                <a href="/tags/{{ $singleTag->id }}" class="mr-2"><span class="badge badge-light">{{ $singleTag->name }}</span></a>
-                            @endforeach
+                            <h5 class="card-title"><a href="/posts/{{ $post->id }}" class="text-decoration-none  font-weight-bold text-info">{{ $post->title }}</a>
                             </h5>
                             <p class="card-text">{{ $post->content }}
                             </p>
@@ -83,9 +76,6 @@
                                     <i class="fas fa-tags fa-sm mr-2 text-danger"></i> {{ __('home.hot_tag') }} </h6>
                                 <h6 class="card-text">
                                     <a href="#"><span class="badge badge-light">Tag here 9</span></a>
-                                    <a href="#"><span class="badge badge-light">Tag here 10</span></a>
-                                    <a href="#"><span class="badge badge-light">Tag here 12</span></a>
-                                    <a href="#"><span class="badge badge-light">Tag here 14</span></a>
                                 </h6>
                             </div>
                         </div>
@@ -103,7 +93,7 @@
                                 <div class="card-text mb-1">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <a href="#"><img src="{{ asset('images/profile.png') }}" alt=""
+                                            <a href="#"><img src="{{ asset('image/profile.png') }}" alt=""
                                                     class="rounded-circle" width="20px" height="20px"></a>
                                         </div>
                                         <div class="col-sm-10">
@@ -114,7 +104,7 @@
                                 <div class="card-text mb-1">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <a href="#"><img src="{{ asset('images/profile.png') }}" alt=""
+                                            <a href="#"><img src="{{ asset('image/profile.png') }}" alt=""
                                                     class="rounded-circle" width="20px" height="20px"></a>
                                         </div>
                                         <div class="col-sm-10">
@@ -125,7 +115,7 @@
                                 <div class="card-text mb-1">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <a href="#"><img src="{{ asset('images/profile.png') }}" alt=""
+                                            <a href="#"><img src="{{ asset('image/profile.png') }}" alt=""
                                                     class="rounded-circle" width="20px" height="20px"></a>
                                         </div>
                                         <div class="col-sm-10">
@@ -144,3 +134,4 @@
     </div>
 </div>
 @endsection
+

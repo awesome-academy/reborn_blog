@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -35,7 +36,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('posts.create');
+        $tags = Tag::get()->pluck('name', 'id');
+
+        return view('posts.create', compact('tags'));
     }
     /**
      * Store a newly created resource in storage.
@@ -48,9 +51,9 @@ class PostController extends Controller
             'title',
             'content',
         ]);
-
         $data['user_id'] = auth()->id();
         $post = $this->postService->store($data);
+        $post->tag()->sync((array)$request->input('tag'));
 
         if (!$post) {
             return back()->with('status', __('posts.create_fail'));
@@ -85,8 +88,9 @@ class PostController extends Controller
      */
     public function edit(EditPostRequest $request, $id) {
         $post = $this->postService->edit($id);
+        $tags = Tag::get()->pluck('name', 'id');
 
-        return view('posts.edit', ['post' => $post]);
+        return view('posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -101,8 +105,9 @@ class PostController extends Controller
             'title',
             'content',
         ]);
-
         $post = $this->postService->update($id, $data);
+        $post->tag()->sync((array)$request->input('tag'));
+
 
         return redirect('posts/' . $post->id)->with('status', __('posts.create_success'));
     }
@@ -115,7 +120,6 @@ class PostController extends Controller
      */
     public function destroy($id) {
         $delFlag = $this->postService->destroy($id);
-
         $result = [
             'status' => $delFlag,
             'msg' => $delFlag ? __('posts.delete_success') : __('posts.delete_fail'),
